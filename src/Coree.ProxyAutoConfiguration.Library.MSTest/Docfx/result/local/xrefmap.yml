@@ -7,25 +7,6 @@ references:
   commentId: N:Coree.ProxyAutoConfiguration.Library
   fullName: Coree.ProxyAutoConfiguration.Library
   nameWithType: Coree.ProxyAutoConfiguration.Library
-- uid: Coree.ProxyAutoConfiguration.Library.Class1
-  name: Class1
-  href: api/Coree.ProxyAutoConfiguration.Library.Class1.html
-  commentId: T:Coree.ProxyAutoConfiguration.Library.Class1
-  fullName: Coree.ProxyAutoConfiguration.Library.Class1
-  nameWithType: Class1
-- uid: Coree.ProxyAutoConfiguration.Library.Class1.Foo
-  name: Foo()
-  href: api/Coree.ProxyAutoConfiguration.Library.Class1.html#Coree_ProxyAutoConfiguration_Library_Class1_Foo
-  commentId: M:Coree.ProxyAutoConfiguration.Library.Class1.Foo
-  fullName: Coree.ProxyAutoConfiguration.Library.Class1.Foo()
-  nameWithType: Class1.Foo()
-- uid: Coree.ProxyAutoConfiguration.Library.Class1.Foo*
-  name: Foo
-  href: api/Coree.ProxyAutoConfiguration.Library.Class1.html#Coree_ProxyAutoConfiguration_Library_Class1_Foo_
-  commentId: Overload:Coree.ProxyAutoConfiguration.Library.Class1.Foo
-  isSpec: "True"
-  fullName: Coree.ProxyAutoConfiguration.Library.Class1.Foo
-  nameWithType: Class1.Foo
 - uid: Coree.ProxyAutoConfiguration.Library.NLogConfig
   name: NLogConfig
   href: api/Coree.ProxyAutoConfiguration.Library.NLogConfig.html
@@ -154,41 +135,3 @@ references:
   isSpec: "True"
   fullName: Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.Set
   nameWithType: ProxyAutoConfiguration.Set
-- uid: Coree.ProxyAutoConfiguration.Library.doo
-  name: doo
-  href: api/Coree.ProxyAutoConfiguration.Library.doo.html
-  commentId: T:Coree.ProxyAutoConfiguration.Library.doo
-  fullName: Coree.ProxyAutoConfiguration.Library.doo
-  nameWithType: doo
-- uid: Coree.ProxyAutoConfiguration.Library.doo.initdoo
-  name: initdoo()
-  href: api/Coree.ProxyAutoConfiguration.Library.doo.html#Coree_ProxyAutoConfiguration_Library_doo_initdoo
-  commentId: M:Coree.ProxyAutoConfiguration.Library.doo.initdoo
-  fullName: Coree.ProxyAutoConfiguration.Library.doo.initdoo()
-  nameWithType: doo.initdoo()
-- uid: Coree.ProxyAutoConfiguration.Library.doo.initdoo*
-  name: initdoo
-  href: api/Coree.ProxyAutoConfiguration.Library.doo.html#Coree_ProxyAutoConfiguration_Library_doo_initdoo_
-  commentId: Overload:Coree.ProxyAutoConfiguration.Library.doo.initdoo
-  isSpec: "True"
-  fullName: Coree.ProxyAutoConfiguration.Library.doo.initdoo
-  nameWithType: doo.initdoo
-- uid: Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx
-  name: oldNLogConfigxxxx
-  href: api/Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.html
-  commentId: T:Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx
-  fullName: Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx
-  nameWithType: oldNLogConfigxxxx
-- uid: Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.Instance
-  name: Instance
-  href: api/Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.html#Coree_ProxyAutoConfiguration_Library_oldNLogConfigxxxx_Instance
-  commentId: P:Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.Instance
-  fullName: Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.Instance
-  nameWithType: oldNLogConfigxxxx.Instance
-- uid: Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.Instance*
-  name: Instance
-  href: api/Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.html#Coree_ProxyAutoConfiguration_Library_oldNLogConfigxxxx_Instance_
-  commentId: Overload:Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.Instance
-  isSpec: "True"
-  fullName: Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.Instance
-  nameWithType: oldNLogConfigxxxx.Instance

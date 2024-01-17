@@ -4,16 +4,6 @@
   "files": [
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Coree.ProxyAutoConfiguration.Library.Class1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Coree.ProxyAutoConfiguration.Library.Class1.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Coree.ProxyAutoConfiguration.Library.NLogConfig.yml",
       "output": {
         ".html": {
@@ -28,26 +18,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Coree.ProxyAutoConfiguration.Library.doo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Coree.ProxyAutoConfiguration.Library.doo.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Coree.ProxyAutoConfiguration.Library.oldNLogConfigxxxx.html"
         }
       },
       "version": ""

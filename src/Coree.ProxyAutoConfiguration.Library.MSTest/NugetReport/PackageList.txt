@@ -15,3 +15,13 @@ Project 'Coree.ProxyAutoConfiguration.Library' has the following package referen
    > Jint                 2.11.58     2.11.58 
    > NLog                 5.2.7       5.2.7   
 
+   [net7.0]: 
+   Top-level Package      Requested   Resolved
+   > Jint                 2.11.58     2.11.58 
+   > NLog                 5.2.7       5.2.7   
+
+   [net8.0]: 
+   Top-level Package      Requested   Resolved
+   > Jint                 2.11.58     2.11.58 
+   > NLog                 5.2.7       5.2.7   
+

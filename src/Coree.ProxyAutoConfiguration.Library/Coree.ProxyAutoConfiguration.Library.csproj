@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
     <DebugType>embedded</DebugType>
     <LangVersion>latest</LangVersion>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <RuntimeIdentifiers>win-x86;win-x64;linux-x64;linux-musl-arm64;linux-arm;linux-arm64;osx-x64</RuntimeIdentifiers>
     <UseRidGraph>true</UseRidGraph>
   </PropertyGroup>

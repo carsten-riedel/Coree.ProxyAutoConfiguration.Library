@@ -435,11 +435,35 @@ function isInNet(host, pattern, mask) {
 
             AutoConfigURL = GetPacUrlFromRegistry();
 
+            if (AutoConfigURL != null)
+            {
+                logger.Info($@"AutoConfigURL");
+                logger.Info($@"{AutoConfigURL}");
+            }
+
             PacFileContent = ReadPacFileSync(AutoConfigURL);
+
+            if (PacFileContent != null)
+            {
+                logger.Info($@"PacFileContent");
+                logger.Info($@"{PacFileContent}");
+            }
 
             FullJavaScript = PacFileContent + Environment.NewLine + MozillaPacFunctions;
 
+            if (FullJavaScript != null)
+            {
+                logger.Info($@"FullJavaScript");
+                logger.Info($@"{FullJavaScript}");
+            }
+
             FindProxyForURLResult = JintInvokeScriptFunctionFindProxyForURL(FullJavaScript, "https://www.example.com");
+
+            if (FindProxyForURLResult != null)
+            {
+                logger.Info($@"FindProxyForURLResult");
+                logger.Info($@"{FindProxyForURLResult}");
+            }
 
             List<string> proxyOrder = ParseProxyStrings(FindProxyForURLResult);
 
