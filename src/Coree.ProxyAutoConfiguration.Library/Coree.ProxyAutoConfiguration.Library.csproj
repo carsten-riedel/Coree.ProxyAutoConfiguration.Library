@@ -33,6 +33,7 @@
   <!-- Exclude .gitignore from solution explorer -->
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="NLogConfig.cs" />
   </ItemGroup>
 
   <ItemGroup>

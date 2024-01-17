@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using NLog;
+﻿using NLog;
 using NLog.Config;
-using NLog.Targets;
 using NLog.Layouts;
+using NLog.Targets;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Coree.ProxyAutoConfiguration.Library
 {
-    /// <summary>
-    /// The 'Class1' provides foundational functionalities for the library.
-    /// It is a static class, meaning it cannot be instantiated and its members are accessed at the class level.
-    /// </summary>
-    public static class Class1
+    public class NLogConfig
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
 #pragma warning disable IDE0052 // Remove unread private members
 #pragma warning disable CA1823 // Unused field _
+
         private static readonly LogFactory _ = NLog.LogManager.Setup(SetupBuilder =>
         {
             SetupBuilder.LoadConfiguration(LoadConfigurationBuilder =>
@@ -61,19 +58,20 @@ namespace Coree.ProxyAutoConfiguration.Library
                 });
             });
         });
+
 #pragma warning restore IDE0052 // Remove unread private members
 #pragma warning restore CA1823 // Unused field _
 
-        /// <summary>
-        /// 'Foo' is a simple method that returns a fixed string value. 
-        /// This method can be used to demonstrate basic class functionality or for testing purposes.
-        /// </summary>
-        /// <returns>Returns a string "123".</returns>
-        public static string Foo()
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+
+
+#pragma warning disable CA2255 // The 'ModuleInitializer' attribute should not be used in libraries
+        [ModuleInitializer]
+#pragma warning restore CA2255 // The 'ModuleInitializer' attribute should not be used in libraries
+        public static void Initialize()
         {
-            logger.Info("{shopitem} added to basket by {user}", new { Id = 6, Name = "Jacket", Color = "Orange" }, "Kenny");
-            return "123";
+            logger.Info("NLog ModuleInitializer Initialized");
         }
     }
 }
-

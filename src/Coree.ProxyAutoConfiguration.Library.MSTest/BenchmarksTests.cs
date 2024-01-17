@@ -39,7 +39,7 @@ namespace Coree.ProxyAutoConfiguration.Library.MSTest
         [Benchmark]
         public void Benchmark1()
         {
-            var result = Coree.ProxyAutoConfiguration.Library.Class1.Foo();
+            var result = new Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration();
         }
 
         [Benchmark]
@@ -47,7 +47,7 @@ namespace Coree.ProxyAutoConfiguration.Library.MSTest
         {
             int ss = 200 + 300;
             System.Threading.Thread.Sleep(ss);
-            var result = Coree.ProxyAutoConfiguration.Library.Class1.Foo();
+            var result = new Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration();
         }
     }
 

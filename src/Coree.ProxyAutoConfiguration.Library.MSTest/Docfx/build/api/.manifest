@@ -1,7 +1,7 @@
 {
   "Coree.ProxyAutoConfiguration.Library": "Coree.ProxyAutoConfiguration.Library.yml",
-  "Coree.ProxyAutoConfiguration.Library.Class1": "Coree.ProxyAutoConfiguration.Library.Class1.yml",
-  "Coree.ProxyAutoConfiguration.Library.Class1.Foo": "Coree.ProxyAutoConfiguration.Library.Class1.yml",
+  "Coree.ProxyAutoConfiguration.Library.NLogConfig": "Coree.ProxyAutoConfiguration.Library.NLogConfig.yml",
+  "Coree.ProxyAutoConfiguration.Library.NLogConfig.Initialize": "Coree.ProxyAutoConfiguration.Library.NLogConfig.yml",
   "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
   "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.#ctor": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
   "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.AutoConfigURL": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",

@@ -9,11 +9,14 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using NLog;
 
 namespace Coree.ProxyAutoConfiguration.Library
 {
     public class ProxyAutoConfiguration
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         //See https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling/Proxy_Auto-Configuration_PAC_file
         //See https://github.com/mozilla/gecko-dev/blob/ae3df68e9ba2faeaf76445a7650e4e742eb7b4e7/netwerk/base/ascii_pac_utils.js
         private const string MozillaPacFunctions = @"
@@ -422,11 +425,16 @@ function isInNet(host, pattern, mask) {
 
         public ProxyAutoConfiguration()
         {
+            logger.Info("constructor");
+
+
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 throw new PlatformNotSupportedException();
             }
+
             AutoConfigURL = GetPacUrlFromRegistry();
+
             PacFileContent = ReadPacFileSync(AutoConfigURL);
 
             FullJavaScript = PacFileContent + Environment.NewLine + MozillaPacFunctions;
@@ -442,8 +450,11 @@ function isInNet(host, pattern, mask) {
 
             if (proxyOrder.Any())
             {
+                
                 Environment.SetEnvironmentVariable("HTTP_PROXY", proxyOrder.First(), EnvironmentVariableTarget.Process);
                 Environment.SetEnvironmentVariable("HTTPS_PROXY", proxyOrder.First(), EnvironmentVariableTarget.Process);
+                logger.Info($@"Set process enviroment variable HTTP_PROXY to {proxyOrder.First()}");
+                logger.Info($@"Set process enviroment variable HTTP_PROXYS to {proxyOrder.First()}");
             }
         }
 
@@ -471,6 +482,8 @@ function isInNet(host, pattern, mask) {
             {
                 Environment.SetEnvironmentVariable("HTTP_PROXY", firstprox, EnvironmentVariableTarget.Process);
                 Environment.SetEnvironmentVariable("HTTPS_PROXY", firstprox, EnvironmentVariableTarget.Process);
+                logger.Info($@"Set process enviroment variable HTTP_PROXY to {firstprox}");
+                logger.Info($@"Set process enviroment variable HTTP_PROXYS to {firstprox}");
             }
         }
     }

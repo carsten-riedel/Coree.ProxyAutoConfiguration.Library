@@ -4,7 +4,7 @@ items:
   commentId: N:Coree.ProxyAutoConfiguration.Library
   id: Coree.ProxyAutoConfiguration.Library
   children:
-  - Coree.ProxyAutoConfiguration.Library.Class1
+  - Coree.ProxyAutoConfiguration.Library.NLogConfig
   - Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration
   langs:
   - csharp
@@ -16,12 +16,12 @@ items:
   assemblies:
   - Coree.ProxyAutoConfiguration.Library
 references:
-- uid: Coree.ProxyAutoConfiguration.Library.Class1
-  commentId: T:Coree.ProxyAutoConfiguration.Library.Class1
-  href: Coree.ProxyAutoConfiguration.Library.Class1.html
-  name: Class1
-  nameWithType: Class1
-  fullName: Coree.ProxyAutoConfiguration.Library.Class1
+- uid: Coree.ProxyAutoConfiguration.Library.NLogConfig
+  commentId: T:Coree.ProxyAutoConfiguration.Library.NLogConfig
+  href: Coree.ProxyAutoConfiguration.Library.NLogConfig.html
+  name: NLogConfig
+  nameWithType: NLogConfig
+  fullName: Coree.ProxyAutoConfiguration.Library.NLogConfig
 - uid: Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration
   commentId: T:Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration
   href: Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.html
