@@ -1,0 +1,2 @@
+# Coree.ProxyAutoConfiguration.Library
+ProxyAutoConfiguration
