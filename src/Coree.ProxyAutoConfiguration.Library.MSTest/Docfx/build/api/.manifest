@@ -1,0 +1,13 @@
+{
+  "Coree.ProxyAutoConfiguration.Library": "Coree.ProxyAutoConfiguration.Library.yml",
+  "Coree.ProxyAutoConfiguration.Library.Class1": "Coree.ProxyAutoConfiguration.Library.Class1.yml",
+  "Coree.ProxyAutoConfiguration.Library.Class1.Foo": "Coree.ProxyAutoConfiguration.Library.Class1.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.#ctor": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.AutoConfigURL": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.FindProxyForURLResult": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.FullJavaScript": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.PacFileContent": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.Resolve(System.String)": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml",
+  "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.Set(System.String)": "Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.yml"
+}

@@ -1,0 +1,10 @@
+### YamlMime:TableOfContent
+items:
+- uid: Coree.ProxyAutoConfiguration.Library
+  name: Coree.ProxyAutoConfiguration.Library
+  items:
+  - uid: Coree.ProxyAutoConfiguration.Library.Class1
+    name: Class1
+  - uid: Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration
+    name: ProxyAutoConfiguration
+memberLayout: SamePage

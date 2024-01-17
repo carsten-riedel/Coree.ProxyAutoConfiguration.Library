@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
+    <LangVersion>latest</LangVersion>
+    <PackRelease>false</PackRelease>
+    <PublishRelease>false</PublishRelease>
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>opencover,json</CoverletOutputFormat>
+    <CoverletOutput>./CoverletOutput/</CoverletOutput>
+    <VSTestLogger>trx%3bLogFileName=$(MSBuildThisFileDirectory)\MSTestResults\$(MSBuildProjectName).trx;html%3bLogFileName=$(MSBuildThisFileDirectory)\MSTestResults\result.html</VSTestLogger>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+    <PackageReference Include="coverlet.msbuild" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.10" />
+    <PackageReference Include="ReportGenerator" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coree.ProxyAutoConfiguration.Library\Coree.ProxyAutoConfiguration.Library.csproj" />
+  </ItemGroup>
+
+  <Target Name="GenerateHtmlCoverageReport" AfterTargets="GenerateCoverageResultAfterTest">
+    <ReportGenerator ReportFiles="@(CoverletReport)" TargetDirectory="ReportGeneratorOutput" ReportTypes="Html;MarkdownSummaryGithub;MarkdownSummary;CsvSummary;Clover;Badges" />
+  </Target>
+
+  <Target Name="ToolRestore" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet tool restore" />
+  </Target>
+ 
+  <!-- Note index.md toc.yml and docs folder will be used for rendering the output _site, statictoc is needed for start the index.html locally  -->
+  <Target Name="BuildDocfx" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet docfx Docfx/build/docfx_web.json" />
+    <Exec Command="dotnet docfx Docfx/build/docfx_local.json -t statictoc" />
+  </Target>
+
+  <Target Name="ListVulnerable" AfterTargets="PostBuildEvent">
+    <MakeDir Directories="$(MSBuildThisFileDirectory)NugetReport" />
+    <Exec Condition="!$([MSBuild]::IsOSUnixLike())" Command="cd .. %26 dotnet list package --vulnerable --include-transitive %3E Coree.ProxyAutoConfiguration.Library.MSTest/NugetReport/PackageVulnerable.txt" />
+    <Exec Condition="$([MSBuild]::IsOSUnixLike())" Command="cd .. %3B dotnet list package --vulnerable --include-transitive %3E Coree.ProxyAutoConfiguration.Library.MSTest/NugetReport/PackageVulnerable.txt" />
+    <Exec Condition="!$([MSBuild]::IsOSUnixLike())" Command="cd .. %26 dotnet list package %3E Coree.ProxyAutoConfiguration.Library.MSTest/NugetReport/PackageList.txt" />
+    <Exec Condition="$([MSBuild]::IsOSUnixLike())" Command="cd .. %3B dotnet list package %3E Coree.ProxyAutoConfiguration.Library.MSTest/NugetReport/PackageList.txt" />
+  </Target>
+
+</Project>

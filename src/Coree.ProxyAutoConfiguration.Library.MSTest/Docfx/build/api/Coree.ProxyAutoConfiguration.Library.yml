@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: Coree.ProxyAutoConfiguration.Library
+  commentId: N:Coree.ProxyAutoConfiguration.Library
+  id: Coree.ProxyAutoConfiguration.Library
+  children:
+  - Coree.ProxyAutoConfiguration.Library.Class1
+  - Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration
+  langs:
+  - csharp
+  - vb
+  name: Coree.ProxyAutoConfiguration.Library
+  nameWithType: Coree.ProxyAutoConfiguration.Library
+  fullName: Coree.ProxyAutoConfiguration.Library
+  type: Namespace
+  assemblies:
+  - Coree.ProxyAutoConfiguration.Library
+references:
+- uid: Coree.ProxyAutoConfiguration.Library.Class1
+  commentId: T:Coree.ProxyAutoConfiguration.Library.Class1
+  href: Coree.ProxyAutoConfiguration.Library.Class1.html
+  name: Class1
+  nameWithType: Class1
+  fullName: Coree.ProxyAutoConfiguration.Library.Class1
+- uid: Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration
+  commentId: T:Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration
+  href: Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration.html
+  name: ProxyAutoConfiguration
+  nameWithType: ProxyAutoConfiguration
+  fullName: Coree.ProxyAutoConfiguration.Library.ProxyAutoConfiguration

@@ -1,0 +1,42 @@
+{
+  "metadata": [
+    {
+      "noRestore": true,
+      "src": [
+        {
+          "src": "../../../Coree.ProxyAutoConfiguration.Library",
+          "files": [
+            "**/*.csproj"
+          ]
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "../result/local",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "Coree.ProxyAutoConfiguration.Library",
+      "_appTitle": "Coree.ProxyAutoConfiguration.Library",
+      "_appFooter": "<pre></pre>"
+    }
+  }
+}

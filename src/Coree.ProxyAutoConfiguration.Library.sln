@@ -1,0 +1,39 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96DBD0E9-0635-4A87-B886-D3F836445743}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		global.json = global.json
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coree.ProxyAutoConfiguration.Library.MSTest", "Coree.ProxyAutoConfiguration.Library.MSTest\Coree.ProxyAutoConfiguration.Library.MSTest.csproj", "{DCE68200-50FD-4A42-9286-7B4D34915BC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coree.ProxyAutoConfiguration.Library", "Coree.ProxyAutoConfiguration.Library\Coree.ProxyAutoConfiguration.Library.csproj", "{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCE68200-50FD-4A42-9286-7B4D34915BC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE68200-50FD-4A42-9286-7B4D34915BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE68200-50FD-4A42-9286-7B4D34915BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE68200-50FD-4A42-9286-7B4D34915BC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F28D3440-2034-4902-8445-0503D3660686}
+	EndGlobalSection
+	GlobalSection(SolutionNotes) = postSolution
+	EndGlobalSection
+EndGlobal
