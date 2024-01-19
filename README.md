@@ -1,6 +1,9 @@
 # Coree.ProxyAutoConfiguration.Library
 
-**The project is under configuration and setup only atm, there is some code copy from proof of concepts.**
+**This library is currently a proof of concept and is not intended for immediate use.**
+
+**At the moment, the project is primarily focused on configuration and setup, incorporating code from various proof of concepts.**
+**Please note that significant changes and developments are expected as the project evolves.**
 
 This library simplifies proxy configuration in .NET applications by automatically determining proxy settings. It supports two methods:
 
