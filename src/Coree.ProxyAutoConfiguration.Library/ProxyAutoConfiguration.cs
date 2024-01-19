@@ -440,6 +440,11 @@ function isInNet(host, pattern, mask) {
                 logger.Info($@"AutoConfigURL");
                 logger.Info($@"{AutoConfigURL}");
             }
+            else
+            {
+                logger.Info($@"AutoConfigURL from registry is empty aborting");
+                return;
+            }
 
             PacFileContent = ReadPacFileSync(AutoConfigURL);
 
@@ -447,6 +452,11 @@ function isInNet(host, pattern, mask) {
             {
                 logger.Info($@"PacFileContent");
                 logger.Info($@"{PacFileContent}");
+            }
+            else
+            {
+                logger.Info($@"PacFileContent can not be read from url. {AutoConfigURL}");
+                return;
             }
 
             FullJavaScript = PacFileContent + Environment.NewLine + MozillaPacFunctions;
@@ -474,7 +484,6 @@ function isInNet(host, pattern, mask) {
 
             if (proxyOrder.Any())
             {
-                
                 Environment.SetEnvironmentVariable("HTTP_PROXY", proxyOrder.First(), EnvironmentVariableTarget.Process);
                 Environment.SetEnvironmentVariable("HTTPS_PROXY", proxyOrder.First(), EnvironmentVariableTarget.Process);
                 logger.Info($@"Set process enviroment variable HTTP_PROXY to {proxyOrder.First()}");

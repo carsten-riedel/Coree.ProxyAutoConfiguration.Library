@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  
+  <!-- https://learn.microsoft.com/de-de/dotnet/core/tools/global-tools-how-to-create -->
+
+  <!-- dotnet tool list -g -->
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks></TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net7.0</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net8.0</TargetFrameworks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <!-- 
+    Since during pack all ProjectReference will be transformed to Package dependencies. And version number is cascading into all package.
+  -->
+
+  <!-- Package configuration -->
+  <Import Project="Package/Config/PackageMetadata.props" />
+  <Import Project="Package/Config/PackageFileMappings.props" />
+  <Import Project="Package/Config/PackageSpecs.props" />
+
+  <!-- Exclude .gitignore from solution explorer -->
+  <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Coree.ProxyAutoConfiguration.Library\Coree.ProxyAutoConfiguration.Library.csproj" />
+  </ItemGroup>
+
+</Project>
