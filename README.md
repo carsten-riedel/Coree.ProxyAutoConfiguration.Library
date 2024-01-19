@@ -10,7 +10,7 @@ This library simplifies proxy configuration in .NET applications by automaticall
 - **PAC URL Analysis**: Parses proxy settings from a specified PAC (Proxy Auto-Configuration) URL.
 - **Windows Internet Options**: Integrates with and uses Windows Internet Options for proxy settings.
 
-After determining the proxy, the library sets `HTTP_PROXY` and `HTTPS_PROXY` environment variables, enabling seamless proxy usage in projects that don't manage these settings natively. Ideal for ensuring consistent proxy configurations across various environments in .NET applications.
+Once the proxy settings are determined, the library sets the `HTTP_PROXY` and `HTTPS_PROXY` environment variables exclusively for the current process. This approach ensures that there are no changes to the user or system-wide environment settings. This functionality enables seamless proxy integration in projects that do not automatically handle these settings, providing a consistent proxy configuration within the scope of the .NET application's process.
 
 ## Report placeholder
 
