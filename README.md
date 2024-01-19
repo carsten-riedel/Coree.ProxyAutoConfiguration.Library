@@ -30,9 +30,14 @@ Copy and link to docs folder
 
 [Nuget testing](https://int.nugettest.org/)
 ```
+REM Adding nuget test
 dotnet nuget add source https://apiint.nugettest.org/v3/index.json -n nugettest.org
+REM Add as library
 dotnet add package Coree.ProxyAutoConfiguration.Library --version 0.1.8782.10687-prerelease
+REM Add as dotnet global tool
 dotnet tool install --global Coree.ProxyAutoConfiguration.PacEnv --version 0.1.8784.11408-prerelease
+REM dotnet global tool update to latest version
 dotnet tool update --global Coree.ProxyAutoConfiguration.PacEnv --prerelease
+REM call the dotnet tool command
 pacenv
 ```
