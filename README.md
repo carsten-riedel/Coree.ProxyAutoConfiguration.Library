@@ -34,4 +34,5 @@ dotnet nuget add source https://apiint.nugettest.org/v3/index.json -n nugettest.
 dotnet add package Coree.ProxyAutoConfiguration.Library --version 0.1.8782.10687-prerelease
 dotnet tool install --global Coree.ProxyAutoConfiguration.PacEnv --version 0.1.8784.11408-prerelease
 dotnet tool update --global Coree.ProxyAutoConfiguration.PacEnv --prerelease
+pacenv
 ```
