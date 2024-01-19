@@ -27,7 +27,10 @@ After determining the proxy, the library sets `HTTP_PROXY` and `HTTPS_PROXY` env
 [Test result](https://github.com/carsten-riedel/Coree.ProxyAutoConfiguration.Library/blob/main/src/Coree.ProxyAutoConfiguration.Library.MSTest/MSTestResults/result.html)
 Copy and link to docs folder
 
-https://int.nugettest.org/
+
+[Nuget testing](https://int.nugettest.org/)
 ```
+dotnet nuget add source https://apiint.nugettest.org/v3/index.json -n nugettest.org
 dotnet add package Coree.ProxyAutoConfiguration.Library --version 0.1.8782.10687-prerelease
+dotnet tool install --global Coree.ProxyAutoConfiguration.PacEnv --version 0.1.8784.11408-prerelease
 ```
