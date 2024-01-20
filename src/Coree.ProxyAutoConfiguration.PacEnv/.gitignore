@@ -1,7 +1,0 @@
-.vs/**/*
-Coree.ProxyAutoConfiguration.PacEnv/.vs/**/*
-Coree.ProxyAutoConfiguration.PacEnv/bin/**/*
-Coree.ProxyAutoConfiguration.PacEnv/obj/**/*
-Coree.ProxyAutoConfiguration.PacEnv.MSTest/.vs/**/*
-Coree.ProxyAutoConfiguration.PacEnv.MSTest/bin/**/*
-Coree.ProxyAutoConfiguration.PacEnv.MSTest/obj/**/*

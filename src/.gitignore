@@ -5,6 +5,10 @@ Coree.ProxyAutoConfiguration.Library/obj/**/*
 Coree.ProxyAutoConfiguration.Library.MSTest/.vs/**/*
 Coree.ProxyAutoConfiguration.Library.MSTest/bin/**/*
 Coree.ProxyAutoConfiguration.Library.MSTest/obj/**/*
+Coree.ProxyAutoConfiguration.PacEnv/.vs/**/*
+Coree.ProxyAutoConfiguration.PacEnv/bin/**/*
+Coree.ProxyAutoConfiguration.PacEnv/obj/**/*
+
 Coree.ProxyAutoConfiguration.Library.MSTest/CoverletOutput/**/*
 Coree.ProxyAutoConfiguration.Library.MSTest/BenchmarkDotNetReport/**/*
 Coree.ProxyAutoConfiguration.Library.MSTest/ReportGeneratorOutput/**/*

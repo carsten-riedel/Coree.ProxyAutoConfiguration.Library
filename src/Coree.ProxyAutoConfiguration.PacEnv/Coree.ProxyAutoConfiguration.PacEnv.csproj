@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   
   <!-- https://learn.microsoft.com/de-de/dotnet/core/tools/global-tools-how-to-create -->
@@ -12,7 +12,7 @@
     <TargetFrameworks>$(TargetFrameworks);net7.0</TargetFrameworks>
     <TargetFrameworks>$(TargetFrameworks);net8.0</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <!-- 
@@ -29,7 +29,11 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Coree.ProxyAutoConfiguration.Library\Coree.ProxyAutoConfiguration.Library.csproj" />
+    <PackageReference Include="Spectre.Console" Version="0.48.0" />
+    <PackageReference Include="Spectre.Console.Cli" Version="0.48.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Coree.ProxyAutoConfiguration.Library\Coree.ProxyAutoConfiguration.Library.csproj" />
   </ItemGroup>
 
 </Project>

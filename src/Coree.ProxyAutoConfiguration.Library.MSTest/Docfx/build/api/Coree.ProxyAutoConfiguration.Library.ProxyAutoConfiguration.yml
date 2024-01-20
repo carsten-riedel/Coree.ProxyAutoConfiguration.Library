@@ -206,7 +206,7 @@ items:
       repo: https://github.com/carsten-riedel/Coree.ProxyAutoConfiguration.Library.git
     id: Resolve
     path: ../../../Coree.ProxyAutoConfiguration.Library/ProxyAutoConfiguration.cs
-    startLine: 460
+    startLine: 493
   assemblies:
   - Coree.ProxyAutoConfiguration.Library
   namespace: Coree.ProxyAutoConfiguration.Library
@@ -240,7 +240,7 @@ items:
       repo: https://github.com/carsten-riedel/Coree.ProxyAutoConfiguration.Library.git
     id: Set
     path: ../../../Coree.ProxyAutoConfiguration.Library/ProxyAutoConfiguration.cs
-    startLine: 477
+    startLine: 510
   assemblies:
   - Coree.ProxyAutoConfiguration.Library
   namespace: Coree.ProxyAutoConfiguration.Library

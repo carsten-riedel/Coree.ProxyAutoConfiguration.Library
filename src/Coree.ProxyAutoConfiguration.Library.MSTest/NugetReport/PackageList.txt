@@ -25,3 +25,19 @@ Project 'Coree.ProxyAutoConfiguration.Library' has the following package referen
    > Jint                 2.11.58     2.11.58 
    > NLog                 5.2.7       5.2.7   
 
+Project 'Coree.ProxyAutoConfiguration.PacEnv' has the following package references
+   [net6.0]: 
+   Top-level Package          Requested   Resolved
+   > Spectre.Console          0.48.0      0.48.0  
+   > Spectre.Console.Cli      0.48.0      0.48.0  
+
+   [net7.0]: 
+   Top-level Package          Requested   Resolved
+   > Spectre.Console          0.48.0      0.48.0  
+   > Spectre.Console.Cli      0.48.0      0.48.0  
+
+   [net8.0]: 
+   Top-level Package          Requested   Resolved
+   > Spectre.Console          0.48.0      0.48.0  
+   > Spectre.Console.Cli      0.48.0      0.48.0  
+

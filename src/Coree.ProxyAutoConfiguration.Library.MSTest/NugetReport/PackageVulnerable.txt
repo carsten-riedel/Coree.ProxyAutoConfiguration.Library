@@ -4,6 +4,8 @@ The following sources were used:
    https://www.nuget.org/api/v2/
    C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
    C:\Users\Valgrind\source\packages
+   https://apiint.nugettest.org/v3/index.json
 
 The given project `Coree.ProxyAutoConfiguration.Library.MSTest` has no vulnerable packages given the current sources.
 The given project `Coree.ProxyAutoConfiguration.Library` has no vulnerable packages given the current sources.
+The given project `Coree.ProxyAutoConfiguration.PacEnv` has no vulnerable packages given the current sources.

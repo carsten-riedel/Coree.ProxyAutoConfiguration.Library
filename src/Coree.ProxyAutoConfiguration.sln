@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coree.ProxyAutoConfiguratio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coree.ProxyAutoConfiguration.Library", "Coree.ProxyAutoConfiguration.Library\Coree.ProxyAutoConfiguration.Library.csproj", "{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coree.ProxyAutoConfiguration.PacEnv", "Coree.ProxyAutoConfiguration.PacEnv\Coree.ProxyAutoConfiguration.PacEnv\Coree.ProxyAutoConfiguration.PacEnv.csproj", "{96F6818C-5868-4CB7-B752-2A0795BE4E6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coree.ProxyAutoConfiguration.PacEnv", "Coree.ProxyAutoConfiguration.PacEnv\Coree.ProxyAutoConfiguration.PacEnv.csproj", "{BE2A5AD5-CD2F-4546-84BA-D24F64D2FE97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1E755F2-8AB5-47B2-85BB-D7A8AE0E887C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96F6818C-5868-4CB7-B752-2A0795BE4E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96F6818C-5868-4CB7-B752-2A0795BE4E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96F6818C-5868-4CB7-B752-2A0795BE4E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96F6818C-5868-4CB7-B752-2A0795BE4E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE2A5AD5-CD2F-4546-84BA-D24F64D2FE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2A5AD5-CD2F-4546-84BA-D24F64D2FE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE2A5AD5-CD2F-4546-84BA-D24F64D2FE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2A5AD5-CD2F-4546-84BA-D24F64D2FE97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
