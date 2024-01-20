@@ -35,5 +35,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Coree.ProxyAutoConfiguration.Library\Coree.ProxyAutoConfiguration.Library.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="test.pac">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

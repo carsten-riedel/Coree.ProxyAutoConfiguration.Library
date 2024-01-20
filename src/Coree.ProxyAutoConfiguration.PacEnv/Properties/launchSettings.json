@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Coree.ProxyAutoConfiguration.PacEnv": {
-      "commandName": "Project",
-      "commandLineArgs": "-p \"x\" -h"
+      "commandName": "Project"
     }
   }
 }

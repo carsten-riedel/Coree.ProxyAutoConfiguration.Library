@@ -1,25 +1,20 @@
 ﻿using Jint.Native;
 using Jint.Runtime;
 using Jint;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using NLog;
+using System.Dynamic;
 
 namespace Coree.ProxyAutoConfiguration.Library
 {
-    public class ProxyAutoConfiguration
+    public class JintInvoke
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
         //See https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling/Proxy_Auto-Configuration_PAC_file
         //See https://github.com/mozilla/gecko-dev/blob/ae3df68e9ba2faeaf76445a7650e4e742eb7b4e7/netwerk/base/ascii_pac_utils.js
-        private const string MozillaPacFunctions = @"
+        public const string MozillaPacFunctions = @"
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -279,7 +274,6 @@ function timeRange() {
 }
 ";
 
-
         private const string SuggestedPacFunctions = @"
 function isPlainHostName(host) {
     // Check if there are no dots in the hostname
@@ -314,216 +308,88 @@ function isInNet(host, pattern, mask) {
     return (longIp & longMask) === (longPattern & longMask);
 }
 ";
-        private string? GetPacUrlFromRegistry()
+
+        public const string StubTest = @"
+function FindProxyForURL(url, host) {
+    // This is a simple stub function for demonstration purposes.
+    // You can customize the logic based on your specific requirements.
+
+    // Example: Always use a specific proxy server
+    return ""PROXY 192.168.1.100:8080; DIRECT ; FPX 1203.12"";
+}
+
+";
+
+
+        public static JintInvokeScriptFunction.JintInvokeResult CallFindProxyForURL(string? pacScript, string urlToTest)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            Uri uri = new Uri(urlToTest);
+            string host = uri.Host;
+            JintInvokeScriptFunction.JintInvokeResult res = JintInvokeScriptFunction.Execute(pacScript, "FindProxyForURL", new object[] { urlToTest, host });
+            return res;
+        }
+
+    }
+
+    public class JintInvokeScriptFunction
+    {
+        public enum JintInvokeState
+        {
+            Ok,
+            ScriptError,
+            NoScript,
+            FunctionNotFound,
+            ExecutionError
+        }
+
+        public class JintInvokeResult
+        {
+            public string? ReturnValue { get; set; }
+            public JintInvokeState State { get; set; }
+            public Exception? Exception { get; set; }
+        }
+
+        public static JintInvokeResult Execute(string? script, string function, params object[] jsValues)
+        {
+            var result = new JintInvokeResult();
+
+            if (string.IsNullOrEmpty(script))
             {
-                string registryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Internet Settings";
-                using (RegistryKey? registryKey = Registry.CurrentUser.OpenSubKey(registryKeyPath))
+                result.State = JintInvokeState.NoScript;
+                return result;
+            }
+
+            try
+            {
+                Engine engine = new Engine();
+                engine.Execute(script);
+
+                var func = engine.GetValue(function);
+
+                if (func.IsUndefined())
                 {
-                    if (registryKey != null)
-                    {
-                        object? autoConfigUrlValue = registryKey.GetValue("AutoConfigURL");
-                        if (autoConfigUrlValue != null)
-                        {
-                            return autoConfigUrlValue.ToString();
-                        }
-                    }
+                    result.State = JintInvokeState.FunctionNotFound;
+                    return result;
                 }
-                return null;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
-        private string? ReadPacFileSync(string? url)
-        {
-            if (url != null)
-            {
-                using (HttpClient client = new())
+                if (!func.IsObject())
                 {
-                    try
-                    {
-                        var response = client.GetAsync(url).Result;
-                        response.EnsureSuccessStatusCode();
-                        return response.Content.ReadAsStringAsync().Result;
-                    }
-                    catch
-                    {
-                        // In case of any failure, return null
-                        return null;
-                    }
+                    result.State = JintInvokeState.ScriptError;
+                    return result;
                 }
+
+                JsValue[] jsValuesConverted = jsValues.Select(v => JsValue.FromObject(engine, v)).ToArray();
+                JsValue jsResult = engine.Invoke(func, jsValuesConverted);
+
+                result.ReturnValue = jsResult.ToString();
+                result.State = JintInvokeState.Ok;
+                return result;
             }
-            else
+            catch (Exception ex)
             {
-                return null;
-            }
-        }
-
-        private string? JintInvokeScriptFunctionFindProxyForURL(string? pacScript, string urlToTest)
-        {
-
-            if (pacScript == null)
-            {
-                return null;
-            }
-            Engine engine = new Engine();
-            engine.Execute(pacScript);
-
-            var findProxyForURL = engine.GetValue("FindProxyForURL");
-
-            if (findProxyForURL.Type == Types.Object)
-            {
-                Uri uri = new Uri(urlToTest);
-                string host = uri.Host;
-
-                JsValue result = engine.Invoke(findProxyForURL, new JsValue[] { new JsValue(urlToTest), new JsValue(host) });
-
-                if (result.Type == Types.String)
-                {
-                    return result.ToString();
-                }
-            }
-
-            return null;
-        }
-
-        // Method to parse the PAC result and return a list of proxy URLs
-        private List<string> ParseProxyStrings(string? pacResult)
-        {
-            if (pacResult == null)
-            {
-                return new List<string>();
-            }
-
-            var proxies = new List<string>();
-            string[] entries = pacResult.Split(';');
-
-            foreach (var entry in entries)
-            {
-                var trimmedEntry = entry.Trim();
-                if (trimmedEntry.StartsWith("PROXY"))
-                {
-                    proxies.Add(trimmedEntry.Substring(6).Trim()); // Extract the proxy URL
-                }
-                else if (trimmedEntry.Equals("DIRECT", StringComparison.OrdinalIgnoreCase))
-                {
-                    proxies.Add("DIRECT");
-                }
-            }
-
-            return proxies;
-        }
-
-        public string? AutoConfigURL { get; private set; }
-        public string? PacFileContent { get; private set; }
-        public string? FindProxyForURLResult { get; private set; }
-        public string? FullJavaScript { get; private set; }
-        public string PacFileLocation { get; }
-
-        public ProxyAutoConfiguration()
-        {
-            logger.Info("constructor");
-
-
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                throw new PlatformNotSupportedException();
-            }
-
-            AutoConfigURL = GetPacUrlFromRegistry();
-
-            if (AutoConfigURL != null)
-            {
-                logger.Info($@"AutoConfigURL");
-                logger.Info($@"{AutoConfigURL}");
-            }
-            else
-            {
-                logger.Info($@"AutoConfigURL from registry is empty aborting");
-                return;
-            }
-
-            PacFileContent = ReadPacFileSync(AutoConfigURL);
-
-            if (PacFileContent != null)
-            {
-                logger.Info($@"PacFileContent");
-                logger.Info($@"{PacFileContent}");
-            }
-            else
-            {
-                logger.Info($@"PacFileContent can not be read from url. {AutoConfigURL}");
-                return;
-            }
-
-            FullJavaScript = PacFileContent + Environment.NewLine + MozillaPacFunctions;
-
-            if (FullJavaScript != null)
-            {
-                logger.Info($@"FullJavaScript");
-                logger.Info($@"{FullJavaScript}");
-            }
-
-            FindProxyForURLResult = JintInvokeScriptFunctionFindProxyForURL(FullJavaScript, "https://www.example.com");
-
-            if (FindProxyForURLResult != null)
-            {
-                logger.Info($@"FindProxyForURLResult");
-                logger.Info($@"{FindProxyForURLResult}");
-            }
-
-            List<string> proxyOrder = ParseProxyStrings(FindProxyForURLResult);
-
-            foreach (var item in proxyOrder)
-            {
-                Debug.Print($@"{item}");
-            }
-
-            if (proxyOrder.Any())
-            {
-                Environment.SetEnvironmentVariable("HTTP_PROXY", proxyOrder.First(), EnvironmentVariableTarget.Process);
-                Environment.SetEnvironmentVariable("HTTPS_PROXY", proxyOrder.First(), EnvironmentVariableTarget.Process);
-                logger.Info($@"Set process enviroment variable HTTP_PROXY to {proxyOrder.First()}");
-                logger.Info($@"Set process enviroment variable HTTP_PROXYS to {proxyOrder.First()}");
-            }
-        }
-
-        public ProxyAutoConfiguration(string pacFileLocation)
-        {
-            PacFileLocation = pacFileLocation;
-        }
-
-
-        public string? Resolve(string url)
-        {
-
-            FindProxyForURLResult = JintInvokeScriptFunctionFindProxyForURL(FullJavaScript, url);
-
-            List<string> proxyOrder = ParseProxyStrings(FindProxyForURLResult);
-
-            if (proxyOrder.Any())
-            {
-                return proxyOrder.First();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public void Set(string url)
-        {
-            var firstprox = Resolve(url);
-            if (firstprox != null)
-            {
-                Environment.SetEnvironmentVariable("HTTP_PROXY", firstprox, EnvironmentVariableTarget.Process);
-                Environment.SetEnvironmentVariable("HTTPS_PROXY", firstprox, EnvironmentVariableTarget.Process);
-                logger.Info($@"Set process enviroment variable HTTP_PROXY to {firstprox}");
-                logger.Info($@"Set process enviroment variable HTTP_PROXYS to {firstprox}");
+                result.State = JintInvokeState.ExecutionError;
+                result.Exception = ex;
+                return result;
             }
         }
     }
