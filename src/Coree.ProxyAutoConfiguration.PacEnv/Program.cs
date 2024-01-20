@@ -58,7 +58,7 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
                         break;
 
                     case PacResolver.PacResolveState.RegistryAccessErrorOrEmpty:
-                        AnsiConsole.Markup("[red]Error: Unable to retrieve PAC location from the Windows registry, or the registry entry is empty.[/]");
+                        AnsiConsole.Markup("[blue]Notice: PAC (Proxy Auto-Configuration) entry not found in the Windows registry, and 'ProxyAutoConfigurationLocation' is unspecified. No modifications will be made to HTTP_PROXY and HTTPS_PROXY environment variables. Assuming a direct connection and proceeding without proxy configuration.[/]");
                         return -1;
 
                     case PacResolver.PacResolveState.WrongPlatformNeedNotNullPacLocation:
@@ -169,7 +169,10 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
 
                 foreach (var var in sortedVars)
                 {
-                    AnsiConsole.MarkupLine($"[blue]Key:[/] {var.Key}, [green]Value:[/] {var.Value}");
+                    string keyText = $"Key: {var.Key}".PadRight(20); // Adjust the padding as needed
+                    string valueText = $"Value: {var.Value}".PadLeft(20); // Adjust the padding as needed
+
+                    AnsiConsole.MarkupLine($"[blue]{keyText}[/], [green]{valueText}[/]");
                 }
 
 
