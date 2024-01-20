@@ -89,7 +89,7 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
                 var FullJavaScript = pacScriptContent.Content + Environment.NewLine + JintInvoke.MozillaPacFunctions;
 
                 // Overriding FullJavaScript with a test PAC script for testing purposes
-                FullJavaScript = JintInvoke.StubTest + Environment.NewLine + JintInvoke.MozillaPacFunctions;
+                //FullJavaScript = JintInvoke.StubTest + Environment.NewLine + JintInvoke.MozillaPacFunctions;
 
                 // Executing the PAC script to find the proxy configuration for a given URL
                 var FindProxyForURLResult = JintInvoke.CallFindProxyForURL(FullJavaScript, settings.FindProxyForURL!);
