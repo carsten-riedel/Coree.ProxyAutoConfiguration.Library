@@ -321,76 +321,15 @@ function FindProxyForURL(url, host) {
 ";
 
 
-        public static JintInvokeScriptFunction.JintInvokeResult CallFindProxyForURL(string? pacScript, string urlToTest)
+        public static JintScriptRunner.Result CallFindProxyForURL(string? pacScript, string urlToTest)
         {
             Uri uri = new Uri(urlToTest);
             string host = uri.Host;
-            JintInvokeScriptFunction.JintInvokeResult res = JintInvokeScriptFunction.Execute(pacScript, "FindProxyForURL", new object[] { urlToTest, host });
+            JintScriptRunner.Result res = JintScriptRunner.Execute(pacScript, "FindProxyForURL", new[] { urlToTest, host });
             return res;
         }
 
     }
 
-    public class JintInvokeScriptFunction
-    {
-        public enum JintInvokeState
-        {
-            Ok,
-            ScriptError,
-            NoScript,
-            FunctionNotFound,
-            ExecutionError
-        }
 
-        public class JintInvokeResult
-        {
-            public string? ReturnValue { get; set; }
-            public JintInvokeState State { get; set; }
-            public Exception? Exception { get; set; }
-        }
-
-        public static JintInvokeResult Execute(string? script, string function, params object[] jsValues)
-        {
-            var result = new JintInvokeResult();
-
-            if (string.IsNullOrEmpty(script))
-            {
-                result.State = JintInvokeState.NoScript;
-                return result;
-            }
-
-            try
-            {
-                Engine engine = new Engine();
-                engine.Execute(script);
-
-                var func = engine.GetValue(function);
-
-                if (func.IsUndefined())
-                {
-                    result.State = JintInvokeState.FunctionNotFound;
-                    return result;
-                }
-
-                if (!func.IsObject())
-                {
-                    result.State = JintInvokeState.ScriptError;
-                    return result;
-                }
-
-                JsValue[] jsValuesConverted = jsValues.Select(v => JsValue.FromObject(engine, v)).ToArray();
-                JsValue jsResult = engine.Invoke(func, jsValuesConverted);
-
-                result.ReturnValue = jsResult.ToString();
-                result.State = JintInvokeState.Ok;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                result.State = JintInvokeState.ExecutionError;
-                result.Exception = ex;
-                return result;
-            }
-        }
-    }
 }

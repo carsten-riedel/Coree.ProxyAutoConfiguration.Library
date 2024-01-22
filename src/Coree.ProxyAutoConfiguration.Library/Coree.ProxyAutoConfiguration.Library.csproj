@@ -33,10 +33,12 @@
   <!-- Exclude .gitignore from solution explorer -->
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="FindProxyForURLResultParser.cs" />
+    <None Remove="GenericUriConverter.cs" />
     <None Remove="JintInvoke.cs" />
+    <None Remove="JintScriptRunner.cs" />
     <None Remove="NLogConfig.cs" />
-    <None Remove="PacResultParser.cs" />
-    <None Remove="UriSimpleReader.cs" />
+    <None Remove="UniversalContentReader.cs" />
   </ItemGroup>
 
   <ItemGroup>

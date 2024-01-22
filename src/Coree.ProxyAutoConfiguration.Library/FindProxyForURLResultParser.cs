@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coree.ProxyAutoConfiguration.Library
 {
-    public class PacResultParser
+    public class FindProxyForURLResultParser
     {
         public class ProxyConfiguration
         {

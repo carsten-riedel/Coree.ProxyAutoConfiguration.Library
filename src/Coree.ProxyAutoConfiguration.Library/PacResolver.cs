@@ -12,7 +12,6 @@ using Coree.ProxyAutoConfiguration.Library;
 
 namespace Coree.ProxyAutoConfiguration.Library
 {
-
     public class PacResolver
     {
         public string? PacLocation { get; private set; }
@@ -73,17 +72,17 @@ namespace Coree.ProxyAutoConfiguration.Library
 
         private PacResolutionResult ResolvePacLocationAsUri()
         {
-            UriResolver uriResolver = new UriResolver();
-            uriResolver.ParseInputUri(PacLocation);
+            GenericUriConverter uriResolver = new GenericUriConverter();
+            uriResolver.ConvertInputToUri(PacLocation);
 
-            if (uriResolver.Result.State == UriResolver.ResolveState.UriStringParamIsNull)
+            if (uriResolver.ConversionResult.State == GenericUriConverter.ConversionState.Uninitialized)
             {
                 string? registryUri = GetPacUrlFromRegistry();
                 if (registryUri == null)
                 {
                     return new PacResolutionResult { State = PacResolveState.RegistryAccessErrorOrEmpty };
                 }
-                uriResolver.ParseInputUri(registryUri);
+                uriResolver.ConvertInputToUri(registryUri);
                 this.UsedPacLocation = registryUri; // Set the used PAC location from the registry
             }
             else
@@ -93,89 +92,28 @@ namespace Coree.ProxyAutoConfiguration.Library
 
             return new PacResolutionResult
             {
-                Uri = uriResolver.Result.Uri,
-                State = ConvertToPacResolveState(uriResolver.Result.State),
-                Exception = uriResolver.Result.Exception
+                Uri = uriResolver.ConversionResult.Uri,
+                State = ConvertToPacResolveState(uriResolver.ConversionResult.State),
+                Exception = uriResolver.ConversionResult.Exception
             };
         }
-        private PacResolveState ConvertToPacResolveState(UriResolver.ResolveState state)
+
+        private PacResolveState ConvertToPacResolveState(GenericUriConverter.ConversionState state)
         {
             switch (state)
             {
-                case UriResolver.ResolveState.Ok:
+                case GenericUriConverter.ConversionState.ValidUri:
                     return PacResolveState.Ok;
-                case UriResolver.ResolveState.InvalidUri:
+
+                case GenericUriConverter.ConversionState.ConvertException:
                     return PacResolveState.InvalidUri;
-                case UriResolver.ResolveState.UriStringParamIsNull:
+
+                case GenericUriConverter.ConversionState.Uninitialized:
                     return PacResolveState.UriStringParamIsNull;
+
                 default:
                     return PacResolveState.Unresolved;
             }
         }
     }
-
-
-    public class UriResolver
-    {
-        public string? InputUri { get; private set; }
-        public UriResolutionResult Result { get; private set; }
-
-        public UriResolver()
-        {
-            Result = new UriResolutionResult { State = ResolveState.UriStringParamIsNull };
-        }
-
-        public enum ResolveState
-        {
-            Ok,
-            InvalidUri,
-            UriStringParamIsNull,
-        }
-
-        public class UriResolutionResult
-        {
-            public Uri? Uri { get; set; }
-            public ResolveState State { get; set; }
-            public Exception? Exception { get; set; }
-        }
-
-        public void ParseInputUri(string? inputUri)
-        {
-            this.InputUri = inputUri;
-            this.Result = Resolve();
-        }
-
-        private UriResolutionResult Resolve()
-        {
-            if (InputUri == null)
-            {
-                return new UriResolutionResult { State = ResolveState.UriStringParamIsNull };
-            }
-            else
-            {
-                try
-                {
-                    Uri resolvedUri;
-                    if (Uri.IsWellFormedUriString(InputUri, UriKind.Absolute))
-                    {
-                        resolvedUri = new Uri(InputUri);
-                    }
-                    else
-                    {
-                        var absolutePath = Path.GetFullPath(InputUri);
-                        resolvedUri = new Uri(absolutePath);
-                    }
-
-                    return new UriResolutionResult { State = ResolveState.Ok, Uri = resolvedUri };
-                }
-                catch (Exception ex)
-                {
-                    return new UriResolutionResult { State = ResolveState.InvalidUri, Exception = ex };
-                }
-            }
-        }
-    }
-
-
-
 }

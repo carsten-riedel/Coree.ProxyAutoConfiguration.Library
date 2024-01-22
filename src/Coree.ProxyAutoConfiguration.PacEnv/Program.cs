@@ -40,18 +40,18 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
 
             public override int Execute([NotNull] CommandContext context, [NotNull] Settings settings)
             {
-                var pacResolver = new Library.PacResolver();
+                PacResolver pacResolver = new PacResolver();
                 pacResolver.ParseInputUri(settings.PacLocation);
 
                 switch (pacResolver.Result.State)
                 {
                     case PacResolver.PacResolveState.Ok:
-                        AnsiConsole.Markup($"[green]PAC file location resolved successfully.[/] -> {pacResolver.Result.Uri!.ToString()}");
+                        AnsiConsole.Markup($"[green]PAC file location resolved successfully.[/] -> {pacResolver.Result.Uri}");
                         break;
 
                     case PacResolver.PacResolveState.InvalidUri:
                         AnsiConsole.Markup("[red]Error: The provided PAC location is not a valid URI or local file path.[/]");
-                        return -1;
+                        break;
 
                     case PacResolver.PacResolveState.UriStringParamIsNull:
                         AnsiConsole.Markup("[yellow]Note: No PAC location provided. Attempting to retrieve from Windows registry...[/]");
@@ -59,34 +59,35 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
 
                     case PacResolver.PacResolveState.RegistryAccessErrorOrEmpty:
                         AnsiConsole.Markup("[blue]Notice: PAC (Proxy Auto-Configuration) entry not found in the Windows registry, and 'ProxyAutoConfigurationLocation' is unspecified. No modifications will be made to HTTP_PROXY and HTTPS_PROXY environment variables. Assuming a direct connection and proceeding without proxy configuration.[/]");
-                        return -1;
+                        break;
 
                     case PacResolver.PacResolveState.WrongPlatformNeedNotNullPacLocation:
                         AnsiConsole.Markup("[red]Error: No PAC location provided and automatic retrieval is not supported on this platform. Please specify a PAC location.[/]");
-                        return -1;
+                        break;
 
                     default:
-                        AnsiConsole.Markup("[red]Error: An unexpected error occurred during PAC location resolution.[/]") ;
-                        return -1;
+                        AnsiConsole.Markup("[red]Error: An unexpected error occurred during PAC location resolution.[/]");
+                        break;
                 }
                 AnsiConsole.WriteLine();
 
-
-                UriSimpleReader uriSimpleReader = new UriSimpleReader();
-                var pacScriptContent = uriSimpleReader.GetContent(pacResolver.Result.Uri);
-
-                /*
-                if (pacScriptContent.Content == null)
+                if (pacResolver.Result.State != PacResolver.PacResolveState.Ok)
                 {
-                    string errorMessage = pacScriptContent.exception != null ? pacScriptContent.exception.Message : "Unknown error";
-                    AnsiConsole.Markup($"[red]Failed to read PAC script: {errorMessage}.[/]");
                     return -1;
                 }
-                */
+
+                UniversalContentReader.ContentResult contentResult = UniversalContentReader.FetchContentFromUri(pacResolver.Result.Uri);
+                if (contentResult.Content == null)
+                {
+                    string errorMessage = contentResult.Exception != null ? contentResult.Exception.Message : "Unknown error";
+                    AnsiConsole.Markup($"[red]Failed to read PAC script: {errorMessage}.[/]");
+                    return -2;
+                }
+                
 
 
                 // Assuming FullJavaScript is a combination of PAC script and necessary functions
-                var FullJavaScript = pacScriptContent.Content + Environment.NewLine + JintInvoke.MozillaPacFunctions;
+                var FullJavaScript = contentResult.Content + Environment.NewLine + JintInvoke.MozillaPacFunctions;
 
                 // Overriding FullJavaScript with a test PAC script for testing purposes
                 //FullJavaScript = JintInvoke.StubTest + Environment.NewLine + JintInvoke.MozillaPacFunctions;
@@ -97,23 +98,23 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
                 // Handling different states of the PAC script execution result
                 switch (FindProxyForURLResult.State)
                 {
-                    case JintInvokeScriptFunction.JintInvokeState.Ok:
+                    case JintScriptRunner.ExecutionState.Success:
                         // Green color for success
                         AnsiConsole.Markup("[green]Proxy script configuration value:[/] -> " + FindProxyForURLResult.ReturnValue);
                         break;
-                    case JintInvokeScriptFunction.JintInvokeState.ScriptError:
+                    case JintScriptRunner.ExecutionState.FunctionNonInvokable:
                         // Red color for script error
                         AnsiConsole.Markup("[red]Error: There was an error in the PAC script.[/]");
                         return -1;
-                    case JintInvokeScriptFunction.JintInvokeState.NoScript:
+                    case JintScriptRunner.ExecutionState.ScriptMissing:
                         // Red color for no script found
                         AnsiConsole.Markup("[red]Error: No PAC script was found.[/]");
                         return -1;
-                    case JintInvokeScriptFunction.JintInvokeState.FunctionNotFound:
+                    case JintScriptRunner.ExecutionState.FunctionNotFound:
                         // Red color for function not found
                         AnsiConsole.Markup("[red]Error: The FindProxyForURL function was not found in the PAC script.[/]");
                         return -1;
-                    case JintInvokeScriptFunction.JintInvokeState.ExecutionError:
+                    case JintScriptRunner.ExecutionState.ScriptExecutionError:
                         // Red color for execution error
                         AnsiConsole.Markup("[red]Error: There was an execution error: " + FindProxyForURLResult.Exception?.Message + "[/]");
                         return -1;
@@ -124,31 +125,30 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
                 }
                 AnsiConsole.WriteLine();
 
-                List<PacResultParser.ProxyConfiguration> entries = PacResultParser.ParseProxyStrings(FindProxyForURLResult.ReturnValue);
+                List<FindProxyForURLResultParser.ProxyConfiguration> entries = FindProxyForURLResultParser.ParseProxyStrings(FindProxyForURLResult.ReturnValue);
 
                 for (int i = 0; i < entries.Count; i++)
                 {
-                    if (entries[i].Type == PacResultParser.ProxyType.Unknown)
+                    if (entries[i].Type == FindProxyForURLResultParser.ProxyType.Unknown)
                     {
                         AnsiConsole.Markup($"[yellow]Entry #{i} is invalid: Type - {entries[i].Type}, Value - {entries[i].ReturnValue}[/]");
                         AnsiConsole.WriteLine();
                     }
                     else
                     {
-                        // Replace 'ok blah blah' with a more descriptive message if needed
                         AnsiConsole.Markup($"[green]Entry #{i} is valid: Type - {entries[i].Type}, Value - {entries[i].ReturnValue}[/]");
                         AnsiConsole.WriteLine();
                     }
                 }
 
-                if (!entries.Any(e => e.Type == PacResultParser.ProxyType.Proxy))
+                if (!entries.Any(e => e.Type == FindProxyForURLResultParser.ProxyType.Proxy))
                 {
                     AnsiConsole.MarkupLine("[yellow]Warning: No proxy entries found in the PAC script return value.[/]");
                     return -1;
                 }
 
 
-                PacResultParser.ProxyConfiguration FirstProxy = entries.First(e => e.Type == PacResultParser.ProxyType.Proxy);
+                FindProxyForURLResultParser.ProxyConfiguration FirstProxy = entries.First(e => e.Type == FindProxyForURLResultParser.ProxyType.Proxy);
 
                 FirstProxy.ReturnValue = "http://" + FirstProxy.ReturnValue;
 
@@ -180,6 +180,12 @@ namespace Coree.ProxyAutoConfiguration.PacEnv
                 return 0;
             }
 
+            public PacResolver Parse([NotNull] CommandContext context, [NotNull] Settings settings)
+            {
+
+
+                return pacResolver;
+            }
 
         }
     }
