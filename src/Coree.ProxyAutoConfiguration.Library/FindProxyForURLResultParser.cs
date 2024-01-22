@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Coree.ProxyAutoConfiguration.Library
 {
     public class FindProxyForURLResultParser
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         public class ProxyConfiguration
         {
             public string? ReturnValue { get; set; }
